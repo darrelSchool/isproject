@@ -1,0 +1,26 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{% endblock %}></title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+    <nav class="py-3 px-8 flex flex-row items-center justify-between">
+        <a href="/operator" class="text-2xl font-bold">Tour Haven</a>
+        <div class="flex flex-row items-center space-x-6">
+          <a href="/operator/create_package">Create</a>
+          <a href="/operator/">Dashboard</a>
+          <form action="{% url 'tour_operator:logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="Submit" class="text-center text-white px-6 py-2 bg-red-800 rounded-lg">Log out</button>
+          </form>
+        </div>
+    </nav>
+  </header>
+    {% block body %} {% endblock %}
+  </body>
+</html>

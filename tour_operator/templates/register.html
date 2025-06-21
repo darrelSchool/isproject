@@ -1,0 +1,17 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  </head>
+  <body class="flex flex-col items-center justify-center h-screen">
+    <form action="/operator/register" method="post" class="flex flex-col items-start justify-between border border-black rounded-xl px-14 h-1/2 py-6">
+      <h1 class="font-bold text-2xl">Register as an operator</h1>
+      {% csrf_token %} {{ form }}
+      <button type="submit" class="bg-black text-white rounded-lg w-full py-3">Submit</button>
+    </form>
+  </body>
+</html>

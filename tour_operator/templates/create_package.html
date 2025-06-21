@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register Operator Details</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <style>
+      input {
+        @apply px-3 py-2 border-b border-black text-xl
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+    <nav class="py-3 px-8 flex flex-row items-center justify-between">
+        <a href="/operator" class="text-2xl font-bold">Tour Haven</a>
+        <div class="flex flex-row items-center space-x-6">
+          <a href="/operator/create_package">Create</a>
+          <a href="/operator/">Dashboard</a>
+          <form action="{% url 'tour_operator:logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="Submit" class="text-center text-white px-6 py-2 bg-red-800 rounded-lg">Log out</button>
+          </form>
+        </div>
+    </nav>
+  </header>
+    <main class="flex flex-col items-center justify-center h-screen">
+
+    <form action="{% url 'tour_operator:create_package' %}" method="POST" enctype="multipart/form-data" class="flex flex-col items-center justify-between border border-black rounded-xl px-14 h-1/2 py-6">
+      <h1 class="font-bold text-2xl">Create Package</h1>
+      <div class="flex flex-col items-start space-y-5">
+      {% csrf_token %} {{ form }}
+      </div>
+      <button type="submit" class="bg-black text-white rounded-lg w-full py-3">Submit</button>
+    </form>
+    </main>
+  </body>
+</html>
