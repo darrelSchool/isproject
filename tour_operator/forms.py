@@ -34,7 +34,13 @@ class CreateOperator(forms.ModelForm):
 class CreatePackage(forms.ModelForm):
     class Meta:
         model = models.Package
-        fields = ["title", "description", "visibility"]
+        fields = ["title", "description", "visibility", "image"]
+
+
+class ModifyPackage(forms.ModelForm):
+    class Meta:
+        model = models.Package
+        fields = ["title", "description", "visibility", "image"]
 
 
 class AuthForm(AuthenticationForm):

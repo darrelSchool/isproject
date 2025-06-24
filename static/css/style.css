@@ -262,6 +262,9 @@
   .bg-red-800 {
     background-color: var(--color-red-800);
   }
+  .bg-none {
+    background-image: none;
+  }
   .px-3 {
     padding-inline: calc(var(--spacing) * 3);
   }
@@ -304,6 +307,9 @@
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
+  }
+  .text-black {
+    color: var(--color-black);
   }
   .text-white {
     color: var(--color-white);
