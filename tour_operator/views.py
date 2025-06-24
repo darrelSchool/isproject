@@ -4,9 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import AuthenticationForm
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.utils.text import slugify
 
 from tour_operator import models
-from tour_operator.forms import AuthForm, CreateOperator, CreatePackage
+from tour_operator.forms import AuthForm, CreateOperator, CreatePackage, ModifyPackage
 
 
 def login_view(request):
@@ -70,12 +71,39 @@ def create_package(request):
     if not user.exists():
         return redirect("tour_operator:add_details")
     if request.method == "POST":
-        form = CreatePackage(request.POST)
+        form = CreatePackage(request.POST, request.FILES)
         if form.is_valid():
             newPackage = form.save(commit=False)
             newPackage.author = user[0]
+            newPackage.slug = slugify(newPackage.id)
             newPackage.save()
             return redirect("tour_operator:home")
     else:
         form = CreatePackage()
     return render(request, "create_package.html", {"form": form})
+
+
+@login_required(login_url="/operator/login")
+def modify_package(request, slug):
+    user = models.Operator.objects.filter(user_id=request.user)
+    if not user.exists():
+        return redirect("tour_operator:add_details")
+    pack = models.Package.objects.get(slug=slug)
+    if request.method == "POST":
+        form = ModifyPackage(request.POST, request.FILES, instance=pack)
+        if form.is_valid():
+            form.save()
+            return redirect("tour_operator:home")
+    else:
+        form = ModifyPackage(instance=pack)
+    return render(request, "modify_package.html", {"form": form, "slug": slug})
+
+
+@login_required(login_url="/operator/login")
+def delete_package(request, slug):
+    user = models.Operator.objects.filter(user_id=request.user)
+    if not user.exists():
+        return redirect("tour_operator:add_details")
+    pack = models.Package.objects.get(slug=slug)
+    pack.delete()
+    return redirect("tour_operator:home")

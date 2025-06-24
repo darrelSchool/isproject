@@ -19,5 +19,6 @@ class Package(models.Model):
     title = models.CharField(max_length=50)
     image = models.ImageField(null=True)
     description = models.TextField()
+    slug = models.SlugField(unique=True, null=False)
     visibility = models.BooleanField(default=False)
     author = models.ForeignKey(Operator, on_delete=models.DO_NOTHING, null=False)

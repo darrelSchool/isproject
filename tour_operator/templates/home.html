@@ -6,16 +6,27 @@
   <section class="flex flex-row flex-wrap justify-between ">
     {% for pack in packages %}
     <div class="flex flex-col items-center justify-start space-y-8">
-      <img src="/media/test.png" alt="/media/fallback.png" class="h-[320px]">
+      <img src="/media/{{ pack.image }}" alt="/media/fallback.png" class="h-[320px]">
       <div class="text-center w-[440px]">
         <h3>{{ pack.title }} </h3>
         <p>{{ pack.description }}</p>
+      </div>
+      <div class="flex flex-row w-full justify-between items-center px-8">
+        <a href="{% url 'tour_operator:modify_package' slug=pack.slug %}" class="text-center text-black px-6 py-2 bg-none border border-black rounded-lg"> Modify </a>
+        <a href="{% url 'tour_operator:delete_package' slug=pack.slug %}" class="text-center text-white px-6 py-2 bg-red-800 rounded-lg" onclick="delete()"> Delete </a>
       </div>
     </div>
     {% endfor %}
   </section>
 </main>
 <script>
-  console.log({{ user }})
+  console.log("Hello");
+  function delete(){
+    preventDefault();
+    if (confirm("Are you sure you want to delete?")) {
+      return true;
+    }
+    return false;
+  }
 </script>
 {% endblock %}
