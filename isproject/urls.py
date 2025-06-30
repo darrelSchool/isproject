@@ -20,15 +20,21 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from isproject import views
+
 urlpatterns = (
     [
+        path("", views.home, name="home"),
         path("admin/", admin.site.urls),
         path(
             "operator/",
-            include(
-                ("tour_operator.urls", "tour_operator"), namespace="tour_operator;"
-            ),
+            include(("tour_operator.urls", "tour_operator"), namespace="tour_operator"),
             name="tour_operator",
+        ),
+        path(
+            "app/",
+            include(("customer.urls", "customer"), namespace="customer"),
+            name="customer",
         ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
