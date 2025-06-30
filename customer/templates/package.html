@@ -1,0 +1,123 @@
+{% extends "cust_layout.html" %} {% block title %}Welcome to Tour Haven{% endblock %}
+{% load static %}
+{% block body %}
+<main class="flex flex-col items-center">
+  <div class="space-y-6 px-16 py-8 w-[80vw]">
+    <h1 class="font-bold text-3xl">{{ package.title }}</h1>
+    <section class="flex flex-row items-start justify-start space-x-8 ">
+      <img src="/media/{{ package.image }}" alt="" class="aspect-[16/10] w-[800px] rounded-2xl">
+      <div class="space-y-6">
+        <h3 class="font-bold text-2xl">Request a quote</h3>
+        <form action="" class="space-y-4 h-full flex flex-col justify-between">
+          <div class="flex flex-row space-x-4">
+            <div class="flex flex-col gap-y-2">
+              <label for="firstname">Firstname:</label>
+              <input type="text" placeholder="Firstname" class="px-3 py-2 border rounded-xl">
+            </div>
+            <div class="flex flex-col gap-y-2">
+              <label for="firstname">Lastname:</label>
+              <input type="text" placeholder="lastname" class="px-3 py-2 border rounded-xl">
+            </div>
+          </div>
+          <div class="flex flex-col gap-y-2">
+            <label for="email">Email:</label>
+            <input type="email" placeholder="example@example.com" class="px-3 py-2 border rounded-xl">
+          </div>
+          <div class="flex flex-row justify-between">
+            <div class="flex flex-col gap-y-2">
+              <label for="Date">Date:</label>
+              <input type="date" placeholder="" class="px-3 py-2 border rounded-xl">
+            </div>
+            <div class="flex flex-col gap-y-2">
+              <label for="nights">Number of nights:</label>
+              <input type="number" placeholder="2" class="px-3 py-2 border rounded-xl">
+            </div>
+          </div>
+          <div class="flex flex-row justify-between">
+            <div class="flex flex-col gap-y-2">
+              <label for="adult_no">Number of Adults:</label>
+              <input type="number" value="2" class="px-3 py-2 border rounded-xl">
+            </div>
+            <div class="flex flex-col gap-y-2">
+              <label for="nights">Number of Children:</label>
+              <input type="number" value="0" class="px-3 py-2 border rounded-xl">
+            </div>
+          </div>
+          <button type="submit" class="text-center text-white py-4 w-full bg-[#2094A1] rounded-xl">
+            Submit Request
+          </button>
+        </form>
+      </div>
+    </section>
+    <section class="space-y-6">
+      <h3 class="font-bold text-2xl">Description</h3>
+      <p class="w-1/2">{{ package.description}}</p>
+    </section>
+    <section class="space-y-6">
+      <h3 class="font-bold text-2xl">Reviews</h3>
+      <div class="flex flex-row flex-wrap space-x-6 gap-y-10">
+        <div class="flex flex-col space-y-3 w-[440px] px-4 pt-4 pb-6 border border-gray-500 rounded-xl">
+          <div class="flex flex-row space-x-4">
+            <p>Darrel K</p>
+            <div class="flex flex-row">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-empty.svg' %}" alt="" width="20">
+            </div>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae iste inventore facere doloremque
+            vero,
+            eveniet nisi consequatur pariatur a cupiditate?</p>
+        </div>
+        <div class="flex flex-col space-y-3 w-[440px] px-4 pt-4 pb-6 border border-gray-500 rounded-xl">
+          <div class="flex flex-row space-x-4">
+            <p>Darrel K</p>
+            <div class="flex flex-row">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-empty.svg' %}" alt="" width="20">
+            </div>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae iste inventore facere doloremque
+            vero,
+            eveniet nisi consequatur pariatur a cupiditate?</p>
+        </div>
+        <div class="flex flex-col space-y-3 w-[440px] px-4 pt-4 pb-6 border border-gray-500 rounded-xl">
+          <div class="flex flex-row space-x-4">
+            <p>Darrel K</p>
+            <div class="flex flex-row">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-empty.svg' %}" alt="" width="20">
+            </div>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae iste inventore facere doloremque
+            vero,
+            eveniet nisi consequatur pariatur a cupiditate?</p>
+        </div>
+        <div class="flex flex-col space-y-3 w-[440px] px-4 pt-4 pb-6 border border-gray-500 rounded-xl">
+          <div class="flex flex-row space-x-4">
+            <p>Darrel K</p>
+            <div class="flex flex-row">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              <img src="{% static 'icons/star-empty.svg' %}" alt="" width="20">
+            </div>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae iste inventore facere doloremque
+            vero,
+            eveniet nisi consequatur pariatur a cupiditate?</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

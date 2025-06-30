@@ -1,0 +1,23 @@
+{% extends "cust_layout.html" %} {% block title %}Welcome to Tour Haven{% endblock %}
+{% load static %}
+{% block body %}
+<main>
+  <section class="h-[70vh] bg-gray-200">
+    <div class="flex flex-col items-center justify-center h-full space-y-6">
+      <h2 class="font-bold text-5xl">Plan your next adventure</h2>
+      <p>Find your dream destination</p>
+    </div>
+  </section>
+  <section class="px-16 py-8 space-y-6">
+    <h3 class="font-bold text-2xl">Top destinations</h3>
+    <div class="grid grid-cols-5 gap-32">
+      {% for package in packages %}
+      <a href="{% url 'customer:package' slug=package.slug %}" class="flex flex-col items-center w-[240px]">
+        <img src="/media/{{ package.image }}" alt="destination image" class="w-full rounded-xl aspect-square">
+        <h2>{{ package.title }}</h2>  
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock %}

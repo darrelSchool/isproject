@@ -1,0 +1,20 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <nav class="py-3 px-8 flex flex-row items-center justify-between">
+        <a href="{% url 'customer:home' %}" class="text-2xl font-bold"
+          >Tour Haven</a
+        >
+      </nav>
+    </header>
+    {% block body %} {% endblock %}
+  </body>
+</html>
