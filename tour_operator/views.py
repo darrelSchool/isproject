@@ -7,7 +7,13 @@ from django.shortcuts import redirect, render
 from django.utils.text import slugify
 
 from tour_operator import models
-from tour_operator.forms import AuthForm, CreateOperator, CreatePackage, ModifyPackage
+from tour_operator.forms import (
+    AuthForm,
+    CreateOperator,
+    CreatePackage,
+    HidePackage,
+    ModifyPackage,
+)
 
 
 def login_view(request):
@@ -51,7 +57,20 @@ def home(request):
         models.Package.objects.filter(author=user[0]).filter(visibility=True).count()
     )
     return render(
-        request, "home_final.html", {"user": user[0], "count": count, "active": active}
+        request, "dash_home.html", {"user": user[0], "count": count, "active": active}
+    )
+
+
+@login_required(login_url="/operator/login")
+def view_packages(request):
+    user = models.Operator.objects.filter(user_id=request.user)
+    if not user.exists():
+        return redirect("tour_operator:add_details")
+    packages = models.Package.objects.filter(author=user[0])
+    return render(
+        request,
+        "dash_packages.html",
+        {"user": user[0], "packages": packages, "count": packages.count()},
     )
 
 

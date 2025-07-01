@@ -1,0 +1,38 @@
+{% extends "dash_layout.html" %} {% block title %}Homepage{% endblock %}
+{% load static %}
+{% block body %}
+<main class="px-12 py-4 flex flex-col space-y-8 bg-white h-[96vh] rounded-2xl w-full shadow shadow-gray-400 overflow-y-hidden">
+  <div class="flex flex-row items-center justify-between w-full">
+    <h2 class="text-3xl font-bold">Dashboard</h2>
+      <form action="{% url 'tour_operator:logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="Submit" class="text-center text-white px-6 py-2 bg-[#1E3D29] rounded-full">Log out</button>
+      </form>
+  </div>
+  <section class="h-5/6 space-y-8">
+    <div class="flex flex-row items-center justify-between w-full">
+      <h2 class="text-3xl font-bold">Your Packages</h2>
+      <a href="{% url 'tour_operator:register' %}"></a>
+    </div>
+    <div class="font-semibold shadow shadow-gray-400 flex flex-col space-y-4 p-8 rounded-2xl h-full">
+    {% for pack in packages %}
+      <div class="w-full flex flex-row items-center justify-between">
+        <p class="w-1/6">{{pack.title}}</p>
+        {% if pack.hidden %}
+        <p class="w-1/6">Hidden</p>
+        {% else %}
+        <p class="w-1/6">Visible</p>
+        {% endif %}
+        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6 hover:cursor-pointer">Edit</button>
+        <button class="px-5 py-2 bg-red-800 text-white rounded-xl w-1/6 hover:cursor-pointer">Delete</button>
+      </div>
+    {% endfor %}
+    </div>
+  </section>
+</main>
+<script>
+function toPackages(){
+  window.location.replace("{% url 'tour_operator:register' %}")
+}
+</script>
+{% endblock %}

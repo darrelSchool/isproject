@@ -43,6 +43,12 @@ class ModifyPackage(forms.ModelForm):
         fields = ["title", "description", "visibility", "image"]
 
 
+class HidePackage(forms.ModelForm):
+    class Meta:
+        model = models.Package
+        fields = ["visibility"]
+
+
 class AuthForm(AuthenticationForm):
     username = UsernameField(
         widget=forms.TextInput(attrs={"autofocus": True, "class": "form-input"})
