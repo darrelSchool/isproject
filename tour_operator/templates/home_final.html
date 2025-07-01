@@ -1,0 +1,82 @@
+{% extends "dash_layout.html" %} {% block title %}Homepage{% endblock %}
+{% load static %}
+{% block body %}
+<main class="px-12 py-4 space-y-8 bg-white h-[96vh] rounded-2xl w-full shadow shadow-gray-400 overflow-y-hidden">
+  <div class="flex flex-row items-center justify-between w-full">
+    <h2 class="text-3xl font-bold">Dashboard</h2>
+      <form action="{% url 'tour_operator:logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="Submit" class="text-center text-white px-6 py-2 bg-[#1E3D29] rounded-full">Log out</button>
+      </form>
+  </div>
+  <section class="flex flex-row justify-between items-center">
+    <button 
+      class="flex flex-col items-start justify-between space-y-4 bg-[#1E3D29] shadow shadow-gray-400 text-white w-[28%] aspect-video px-8 py-8 rounded-2xl hover:cursor-pointer"
+      onclick="toPackages()"
+    >
+      <div class="flex flex-row items-center justify-between w-full">
+        <p class="text-xl">Total Packages</p>
+        <img src="{% static 'icons/open.svg' %}" alt="" width="26px">
+      </div>
+      <p class="text-6xl font-semibold">{{count}}</p>
+      <p class="text-xl">{{active}} currently active</p>
+    </button>
+    <button 
+      class="flex flex-col items-start justify-between space-y-4 bg-white shadow shadow-gray-400 text-black w-[28%] aspect-video px-8 py-8 rounded-2xl hover:cursor-pointer"
+      onclick="toPackages()"
+    >
+      <div class="flex flex-row items-center justify-between w-full">
+        <p class="text-xl">Open quotes</p>
+        <img src="{% static 'icons/open-black.svg' %}" alt="" width="26px">
+      </div>
+      <p class="text-6xl font-semibold">23</p>
+      <p class="text-xl">10 unresolved</p>
+    </button>
+    <button 
+      class="flex flex-col items-start justify-between space-y-4 bg-white shadow shadow-gray-400 text-black w-[28%] aspect-video px-8 py-8 rounded-2xl hover:cursor-pointer"
+      onclick="toPackages()"
+    >
+      <div class="flex flex-row items-center justify-between w-full">
+        <p class="text-xl">Reviews</p>
+        <img src="{% static 'icons/open-black.svg' %}" alt="" width="26px">
+      </div>
+      <p class="text-6xl font-semibold">12</p>
+      <p class="text-xl">4.3 average rating</p>
+    </button>
+  </section>
+  <section class="h-1/2 space-y-8">
+    <h2 class="text-3xl font-bold">Recent Quotes</h2>
+    <div class="font-semibold shadow shadow-gray-400 flex flex-col space-y-4 p-8 rounded-2xl h-full">
+      <div class="w-full flex flex-row items-center justify-between">
+        <p class="w-1/4">Darrel Kanyugo</p>
+        <p class="w-1/4">A trip to Malawi</p>
+        <p class="w-1/4">darrelk@gmail.com</p>
+        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6">Resolve</button>
+      </div>
+      <div class="w-full flex flex-row items-center justify-between">
+        <p class="w-1/4">Darrel Kanyugo</p>
+        <p class="w-1/4">A trip to Malawi</p>
+        <p class="w-1/4">darrelk@gmail.com</p>
+        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6">Resolve</button>
+      </div>
+      <div class="w-full flex flex-row items-center justify-between">
+        <p class="w-1/4">Darrel Kanyugo</p>
+        <p class="w-1/4">A trip to Malawi</p>
+        <p class="w-1/4">darrelk@gmail.com</p>
+        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6">Resolve</button>
+      </div>
+      <div class="w-full flex flex-row items-center justify-between">
+        <p class="w-1/4">Darrel Kanyugo</p>
+        <p class="w-1/4">A trip to Malawi</p>
+        <p class="w-1/4">darrelk@gmail.com</p>
+        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6">Resolve</button>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+function toPackages(){
+  window.location.replace("{% url 'tour_operator:register' %}")
+}
+</script>
+{% endblock %}

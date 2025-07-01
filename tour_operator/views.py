@@ -46,8 +46,13 @@ def home(request):
     user = models.Operator.objects.filter(user_id=request.user)
     if not user.exists():
         return redirect("tour_operator:add_details")
-    packages = models.Package.objects.filter(author=user[0])
-    return render(request, "home.html", {"user": user[0], "packages": packages})
+    count = models.Package.objects.filter(author=user[0]).count()
+    active = (
+        models.Package.objects.filter(author=user[0]).filter(visibility=True).count()
+    )
+    return render(
+        request, "home_final.html", {"user": user[0], "count": count, "active": active}
+    )
 
 
 @login_required(login_url="/operator/login")
