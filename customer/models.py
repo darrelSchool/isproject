@@ -1,6 +1,6 @@
 from django.db import models
 
-from tour_operator.models import Package
+from tour_operator.models import Operator, Package
 
 
 # Create your models here.
@@ -12,6 +12,7 @@ class Review(models.Model):
 
 class Quote(models.Model):
     package = models.ForeignKey(Package, on_delete=models.DO_NOTHING, null=False)
+    author = models.ForeignKey(Operator, on_delete=models.DO_NOTHING, null=True)
     fname = models.CharField(max_length=20)
     lname = models.CharField(max_length=20)
     email = models.EmailField()

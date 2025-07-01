@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import unicodedata
 from django.contrib.auth.views import AuthenticationForm
+from django.forms import widgets
 
 from tour_operator import models
 
@@ -35,12 +36,22 @@ class CreatePackage(forms.ModelForm):
     class Meta:
         model = models.Package
         fields = ["title", "description", "visibility", "image"]
+        widgets = {
+            "title": forms.TextInput(attrs={"class": "to-pack-create-field"}),
+            "description": forms.Textarea(attrs={"class": "to-pack-create-field"}),
+            "visibility": forms.CheckboxInput(attrs={"class": "to-pack-create-field"}),
+        }
 
 
 class ModifyPackage(forms.ModelForm):
     class Meta:
         model = models.Package
         fields = ["title", "description", "visibility", "image"]
+        widgets = {
+            "title": forms.TextInput(attrs={"class": "to-pack-create-field"}),
+            "description": forms.Textarea(attrs={"class": "to-pack-create-field"}),
+            "visibility": forms.CheckboxInput(attrs={"class": "to-pack-create-field"}),
+        }
 
 
 class AuthForm(AuthenticationForm):

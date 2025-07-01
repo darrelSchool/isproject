@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.text import slugify
 
+from customer.models import Quote
 from tour_operator import models
 from tour_operator.forms import AuthForm, CreateOperator, CreatePackage, ModifyPackage
 
@@ -46,8 +47,39 @@ def home(request):
     user = models.Operator.objects.filter(user_id=request.user)
     if not user.exists():
         return redirect("tour_operator:add_details")
+    count = models.Package.objects.filter(author=user[0]).count()
+    active = (
+        models.Package.objects.filter(author=user[0]).filter(visibility=True).count()
+    )
+    return render(
+        request, "dash_home.html", {"user": user[0], "count": count, "active": active}
+    )
+
+
+@login_required(login_url="/operator/login")
+def view_packages(request):
+    user = models.Operator.objects.filter(user_id=request.user)
+    if not user.exists():
+        return redirect("tour_operator:add_details")
     packages = models.Package.objects.filter(author=user[0])
-    return render(request, "home.html", {"user": user[0], "packages": packages})
+    return render(
+        request,
+        "dash_packages.html",
+        {"user": user[0], "packages": packages, "count": packages.count()},
+    )
+
+
+@login_required(login_url="/operator/login")
+def view_quotes(request):
+    user = models.Operator.objects.filter(user_id=request.user)
+    if not user.exists():
+        return redirect("tour_operator:add_details")
+    quotes = Quote.objects.filter(author=user[0])
+    return render(
+        request,
+        "dash_quotes.html",
+        {"user": user[0], "quotes": quotes, "count": quotes.count()},
+    )
 
 
 @login_required(login_url="/operator/login")
@@ -80,7 +112,7 @@ def create_package(request):
             return redirect("tour_operator:home")
     else:
         form = CreatePackage()
-    return render(request, "create_package.html", {"form": form})
+    return render(request, "dash_create.html", {"form": form})
 
 
 @login_required(login_url="/operator/login")
@@ -96,7 +128,9 @@ def modify_package(request, slug):
             return redirect("tour_operator:home")
     else:
         form = ModifyPackage(instance=pack)
-    return render(request, "modify_package.html", {"form": form, "slug": slug})
+    return render(
+        request, "dash_edit.html", {"form": form, "slug": slug, "package": pack}
+    )
 
 
 @login_required(login_url="/operator/login")
