@@ -38,7 +38,7 @@ class CreatePackage(forms.ModelForm):
         fields = ["title", "description", "visibility", "image"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "to-pack-create-field"}),
-            "description": forms.TextInput(attrs={"class": "to-pack-create-field"}),
+            "description": forms.Textarea(attrs={"class": "to-pack-create-field"}),
             "visibility": forms.CheckboxInput(attrs={"class": "to-pack-create-field"}),
         }
 
@@ -47,6 +47,11 @@ class ModifyPackage(forms.ModelForm):
     class Meta:
         model = models.Package
         fields = ["title", "description", "visibility", "image"]
+        widgets = {
+            "title": forms.TextInput(attrs={"class": "to-pack-create-field"}),
+            "description": forms.Textarea(attrs={"class": "to-pack-create-field"}),
+            "visibility": forms.CheckboxInput(attrs={"class": "to-pack-create-field"}),
+        }
 
 
 class AuthForm(AuthenticationForm):

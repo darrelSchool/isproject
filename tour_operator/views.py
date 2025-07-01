@@ -114,7 +114,9 @@ def modify_package(request, slug):
             return redirect("tour_operator:home")
     else:
         form = ModifyPackage(instance=pack)
-    return render(request, "modify_package.html", {"form": form, "slug": slug})
+    return render(
+        request, "dash_edit.html", {"form": form, "slug": slug, "package": pack}
+    )
 
 
 @login_required(login_url="/operator/login")

@@ -1,0 +1,42 @@
+{% extends "dash_layout.html" %} {% block title %}Homepage{% endblock %}
+{% load static %}
+{% block body %}
+<main class="px-12 py-4 flex flex-col space-y-8 bg-white h-[96vh] rounded-2xl w-full shadow shadow-gray-400 overflow-y-hidden">
+  <div class="flex flex-row items-center justify-between w-full">
+    <h2 class="text-3xl font-bold">Dashboard</h2>
+      <form action="{% url 'tour_operator:logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="Submit" class="text-center text-white px-6 py-2 bg-[#1E3D29] rounded-full">Log out</button>
+      </form>
+  </div>
+  <section class="h-11/12 space-y-8 flex flex-row justify-start shadow shadow-gray-400 rounded-xl">
+    <form 
+      action="{% url 'tour_operator:modify_package' slug=slug %}"
+      method="POST" 
+      enctype="multipart/form-data" 
+      class="flex flex-col items-start justify-between space-y-4 px-14 h-fit py-6 w-full"
+    >
+      <h1 class="font-bold text-2xl">Modify Package</h1>
+      <div class="flex flex-col items-start space-y-5 w-full">
+        {% csrf_token %} 
+        {% for field in form %}
+        <div class="field flex flex-col space-y-2 w-full">
+          {{ field.label_tag }} {{ field }}
+          {{ field.errors }}
+        </div>
+        {% endfor %}
+      </div>
+      <button type="submit" class="bg-[#1E3D29] text-white rounded-lg w-1/2 py-3">Submit</button>
+    </form>
+    <div class="p-4 space-y-4">
+      <p>Current Image</p>
+      <img src="/media/{{package.image}}" alt="" class="w-[800px] aspect-auto">
+    </div>
+  </section>
+</main>
+<script>
+function toPackages(){
+  window.location.replace("{% url 'tour_operator:register' %}")
+}
+</script>
+{% endblock %}

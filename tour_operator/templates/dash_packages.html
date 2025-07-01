@@ -23,7 +23,12 @@
         {% else %}
         <p class="w-1/6">Visible</p>
         {% endif %}
-        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6 hover:cursor-pointer">Edit</button>
+        <a 
+          href="{% url 'tour_operator:modify_package' slug=pack.slug %}" 
+          class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6 hover:cursor-pointer text-center"
+        > 
+          Edit
+        </a>
         <button class="px-5 py-2 bg-red-800 text-white rounded-xl w-1/6 hover:cursor-pointer">Delete</button>
       </div>
     {% endfor %}
