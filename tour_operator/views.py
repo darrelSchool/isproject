@@ -7,13 +7,7 @@ from django.shortcuts import redirect, render
 from django.utils.text import slugify
 
 from tour_operator import models
-from tour_operator.forms import (
-    AuthForm,
-    CreateOperator,
-    CreatePackage,
-    HidePackage,
-    ModifyPackage,
-)
+from tour_operator.forms import AuthForm, CreateOperator, CreatePackage, ModifyPackage
 
 
 def login_view(request):
@@ -104,7 +98,7 @@ def create_package(request):
             return redirect("tour_operator:home")
     else:
         form = CreatePackage()
-    return render(request, "create_package.html", {"form": form})
+    return render(request, "dash_create.html", {"form": form})
 
 
 @login_required(login_url="/operator/login")

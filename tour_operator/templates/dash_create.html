@@ -1,0 +1,38 @@
+{% extends "dash_layout.html" %} {% block title %}Homepage{% endblock %}
+{% load static %}
+{% block body %}
+<main class="px-12 py-4 flex flex-col space-y-8 bg-white h-[96vh] rounded-2xl w-full shadow shadow-gray-400 overflow-y-hidden">
+  <div class="flex flex-row items-center justify-between w-full">
+    <h2 class="text-3xl font-bold">Dashboard</h2>
+      <form action="{% url 'tour_operator:logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="Submit" class="text-center text-white px-6 py-2 bg-[#1E3D29] rounded-full">Log out</button>
+      </form>
+  </div>
+  <section class="h-5/6 space-y-8">
+    <form 
+      action="{% url 'tour_operator:create_package' %}" 
+      method="POST" 
+      enctype="multipart/form-data" 
+      class="flex flex-col items-start justify-between space-y-4 shadow shadow-gray-400 rounded-xl px-14 h-fit py-6 w-full"
+    >
+      <h1 class="font-bold text-2xl">Create Package</h1>
+      <div class="flex flex-col items-start space-y-5 w-full">
+        {% csrf_token %} 
+        {% for field in form %}
+        <div class="field flex flex-col space-y-2 w-full">
+          {{ field.label_tag }} {{ field }}
+          {{ field.errors }}
+        </div>
+        {% endfor %}
+      </div>
+      <button type="submit" class="bg-[#1E3D29] text-white rounded-lg w-1/2 py-3">Submit</button>
+    </form>
+  </section>
+</main>
+<script>
+function toPackages(){
+  window.location.replace("{% url 'tour_operator:register' %}")
+}
+</script>
+{% endblock %}
