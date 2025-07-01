@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.text import slugify
 
+from customer.models import Quote
 from tour_operator import models
 from tour_operator.forms import AuthForm, CreateOperator, CreatePackage, ModifyPackage
 
@@ -65,6 +66,19 @@ def view_packages(request):
         request,
         "dash_packages.html",
         {"user": user[0], "packages": packages, "count": packages.count()},
+    )
+
+
+@login_required(login_url="/operator/login")
+def view_quotes(request):
+    user = models.Operator.objects.filter(user_id=request.user)
+    if not user.exists():
+        return redirect("tour_operator:add_details")
+    quotes = Quote.objects.filter(author=user[0])
+    return render(
+        request,
+        "dash_quotes.html",
+        {"user": user[0], "quotes": quotes, "count": quotes.count()},
     )
 
 
