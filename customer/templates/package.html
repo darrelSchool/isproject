@@ -11,6 +11,7 @@
         {% if submitted %}
         <p class="w-3/4 bg-[#2094A1] px-8 py-3 text-center text-white rounded-2xl">Your form was submitted.</p>
         {% endif %}
+        {{form.errors}}
         <form action="{% url 'customer:package' slug=package.slug %}" method="POST" class="space-y-4 h-full flex flex-col justify-between">
           {% csrf_token %}
           <div class="flex flex-row space-x-4">
@@ -30,7 +31,7 @@
           <div class="flex flex-row justify-between">
             <div class="flex flex-col gap-y-2">
               <label for="date_chosen">Date:</label>
-              <input type="date" id="date_chosen" name="date_chosen" class="px-3 py-2 border rounded-xl" required>
+              {{form.date_chosen}}
             </div>
             <div class="flex flex-col gap-y-2">
               <label for="nights_no">Number of nights:</label>

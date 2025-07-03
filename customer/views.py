@@ -20,13 +20,13 @@ def package_view(request, slug):
             newQuote.author = package.author
             newQuote.resolved = False
             newQuote.save()
-        return render(
-            request,
-            "package.html",
-            {"package": package, "form": form, "submitted": True},
-        )
-    else:
-        form = QuoteForm()
+            form = QuoteForm()
+            return render(
+                request,
+                "package.html",
+                {"package": package, "form": form, "submitted": True},
+            )
+    form = QuoteForm()
     return render(
         request, "package.html", {"package": package, "form": form, "submitted": False}
     )

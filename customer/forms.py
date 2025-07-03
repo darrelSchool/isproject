@@ -8,8 +8,6 @@ class QuoteForm(forms.ModelForm):
     class Meta:
         model = Quote
         fields = [
-            "package",
-            "author",
             "fname",
             "lname",
             "email",
@@ -57,8 +55,11 @@ class QuoteForm(forms.ModelForm):
                 }
             ),
             "date_chosen": forms.DateInput(
+                format=("%d/%m/%Y"),
                 attrs={
                     "class": "px-3 py-2 border rounded-xl",
-                }
+                    "placeholder": "Select a date",
+                    "type": "date",
+                },
             ),
         }
