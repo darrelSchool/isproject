@@ -1,20 +1,24 @@
 {% extends "cust_layout.html" %} {% block title %}Welcome to Tour Haven{% endblock %}
 {% load static %}
 {% block body %}
-<main>
-  <section class="h-[70vh] bg-gray-200">
-    <div class="flex flex-col items-center justify-center h-full space-y-6">
-      <h2 class="font-bold text-5xl">Plan your next adventure</h2>
-      <p>Find your dream destination</p>
+<main class="py-10 px-20">
+  <section class="h-[80vh] relative w-full rounded-xl">
+    <div class="absolute -z-50 w-full h-full object-cover overflow-clip flex flex-row items-center justify-center rounded-4xl">
+      <img src="{% static 'images/home.jpg' %}" alt="" class="w-full">
+    </div>
+    <div class="flex flex-col items-start justify-center h-full space-y-10 pl-20 text-white">
+      <p class="text-5xl">Welcome</p>
+      <h2 class="font-semibold text-6xl">Plan your next adventure with us</h2>
+      <p class="text-2xl">Find your dream destination</p>
     </div>
   </section>
-  <section class="px-16 py-8 space-y-6">
-    <h3 class="font-bold text-2xl">Top destinations</h3>
-    <div class="grid grid-cols-5 gap-32">
+  <section class="py-8 space-y-6 ">
+    <h3 class="font-semibold text-2xl">Top destinations</h3>
+    <div class="grid grid-cols-4 gap-10">
       {% for package in packages %}
-      <a href="{% url 'customer:package' slug=package.slug %}" class="flex flex-col items-center w-[240px]">
-        <img src="/media/{{ package.image }}" alt="destination image" class="w-full rounded-xl aspect-square">
-        <h2>{{ package.title }}</h2>  
+      <a href="{% url 'customer:package' slug=package.slug %}" class="flex flex-col items-start space-y-4 w-[300px] h-[300px]">
+        <img src="/media/{{ package.image }}" alt="destination image" class="w-full rounded-md aspect-[16/12]">
+        <h2 class="font-semibold text-lg">{{ package.title }}</h2>  
       </a>
       {% endfor %}
     </div>

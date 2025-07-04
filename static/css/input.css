@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: Inter;
+  src: url(../fonts/Inter/Inter-VariableFont_opsz\,wght.ttf);
+}
+
+* {
+  font-family: Inter;
+}
+
 .to-pack-create-field {
   @apply border border-gray-400 rounded-md px-3 py-1 outline-[#265637] focus:outline w-1/2;
 }
