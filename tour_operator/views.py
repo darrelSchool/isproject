@@ -50,6 +50,7 @@ def home(request):
     count = models.Package.objects.filter(author=user[0]).count()
     quote_count = Quote.objects.filter(author=user[0]).count()
     quote_unresolved = Quote.objects.filter(author=user[0], resolved=False).count()
+    quotes = Quote.objects.filter(author=user[0])
     active = (
         models.Package.objects.filter(author=user[0]).filter(visibility=True).count()
     )
@@ -61,6 +62,7 @@ def home(request):
             "count": count,
             "quote_unresolved": quote_unresolved,
             "quote_count": quote_count,
+            "quotes": quotes,
             "active": active,
         },
     )
