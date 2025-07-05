@@ -7,14 +7,29 @@
     <title>{% block title %}{% endblock %}</title>
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   </head>
-  <body>
+  <body class="">
     <header>
-      <nav class="py-3 px-8 flex flex-row items-center justify-between">
-        <a href="{% url 'customer:home' %}" class="text-2xl font-bold"
-          >Tour Haven</a
-        >
+      <nav class="py-3 px-20 flex flex-row items-center justify-between shadow shadow-gray-400">
+        <a href="{% url 'customer:home' %}" class="text-2xl font-bold">
+          <img src="{% static 'images/logo_home.svg' %}" alt="" width="200px">
+        </a>
+        <div class="flex flex-row space-x-12 items-center justify-center">
+          <a href="{% url 'customer:home' %}">Home</a>
+          <a href="#packages">Packages</a>
+          <a href="{% url 'tour_operator:home' %}">Operator</a>
+          <a href="#contact">Contact Us</a>
+        </div>
+        <a href="{% url 'tour_operator:login' %}" class="text-center text-white bg-black rounded-lg px-4 py-2">Login</a>
       </nav>
     </header>
     {% block body %} {% endblock %}
+    <footer class="w-full h-[40vh] bg-black text-white px-32 py-10 mt-20">
+      <div class="flex flex-col space-y-2">
+        <p class="pb-3 font-bold">Important links</p>
+        <a href="">Home</a>
+        <a href="">Packages</a>
+        <a href="">Operator</a>
+      </div>
+    </footer>
   </body>
 </html>

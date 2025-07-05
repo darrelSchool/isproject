@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
+from customer.forms import QuoteForm
 from tour_operator import models
 
 
@@ -11,4 +12,21 @@ def home(request):
 
 def package_view(request, slug):
     package = models.Package.objects.get(slug=slug)
-    return render(request, "package.html", {"package": package})
+    if request.method == "POST":
+        form = QuoteForm(request.POST)
+        if form.is_valid():
+            newQuote = form.save(commit=False)
+            newQuote.package = package
+            newQuote.author = package.author
+            newQuote.resolved = False
+            newQuote.save()
+            form = QuoteForm()
+            return render(
+                request,
+                "package.html",
+                {"package": package, "form": form, "submitted": True},
+            )
+    form = QuoteForm()
+    return render(
+        request, "package.html", {"package": package, "form": form, "submitted": False}
+    )

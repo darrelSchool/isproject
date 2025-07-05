@@ -8,39 +8,44 @@
       <img src="/media/{{ package.image }}" alt="" class="aspect-[16/10] w-[800px] rounded-2xl">
       <div class="space-y-6">
         <h3 class="font-bold text-2xl">Request a quote</h3>
-        <form action="" class="space-y-4 h-full flex flex-col justify-between">
+        {% if submitted %}
+        <p class="w-3/4 bg-[#2094A1] px-8 py-3 text-center text-white rounded-2xl">Your form was submitted.</p>
+        {% endif %}
+        {{form.errors}}
+        <form action="{% url 'customer:package' slug=package.slug %}" method="POST" class="space-y-4 h-full flex flex-col justify-between">
+          {% csrf_token %}
           <div class="flex flex-row space-x-4">
             <div class="flex flex-col gap-y-2">
-              <label for="firstname">Firstname:</label>
-              <input type="text" placeholder="Firstname" class="px-3 py-2 border rounded-xl">
+              <label for="fname">Firstname:</label>
+              {{form.fname}}
             </div>
             <div class="flex flex-col gap-y-2">
-              <label for="firstname">Lastname:</label>
-              <input type="text" placeholder="lastname" class="px-3 py-2 border rounded-xl">
+              <label for="lname">Lastname:</label>
+              {{form.lname}}
             </div>
           </div>
           <div class="flex flex-col gap-y-2">
             <label for="email">Email:</label>
-            <input type="email" placeholder="example@example.com" class="px-3 py-2 border rounded-xl">
+            {{form.email}}
           </div>
           <div class="flex flex-row justify-between">
             <div class="flex flex-col gap-y-2">
-              <label for="Date">Date:</label>
-              <input type="date" placeholder="" class="px-3 py-2 border rounded-xl">
+              <label for="date_chosen">Date:</label>
+              {{form.date_chosen}}
             </div>
             <div class="flex flex-col gap-y-2">
-              <label for="nights">Number of nights:</label>
-              <input type="number" placeholder="2" class="px-3 py-2 border rounded-xl">
+              <label for="nights_no">Number of nights:</label>
+              {{form.nights_no}}
             </div>
           </div>
           <div class="flex flex-row justify-between">
             <div class="flex flex-col gap-y-2">
-              <label for="adult_no">Number of Adults:</label>
-              <input type="number" value="2" class="px-3 py-2 border rounded-xl">
+              <label for="adults_no">Number of Adults:</label>
+              {{form.adults_no}}
             </div>
             <div class="flex flex-col gap-y-2">
-              <label for="nights">Number of Children:</label>
-              <input type="number" value="0" class="px-3 py-2 border rounded-xl">
+              <label for="child_no">Number of Children:</label>
+              {{form.child_no}}
             </div>
           </div>
           <button type="submit" class="text-center text-white py-4 w-full bg-[#2094A1] rounded-xl">
