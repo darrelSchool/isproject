@@ -14,5 +14,6 @@ urlpatterns = [
     path("packages", views.view_packages, name="view_packages"),
     path("quotes", views.view_quotes, name="view_quotes"),
     path("modify_package/<slug:slug>", views.modify_package, name="modify_package"),
+    path("view_quote/<slug:slug>", views.view_quote, name="view_quote"),
     path("delete_package/<slug:slug>", views.delete_package, name="delete_package"),
 ]

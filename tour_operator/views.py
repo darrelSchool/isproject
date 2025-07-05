@@ -48,11 +48,21 @@ def home(request):
     if not user.exists():
         return redirect("tour_operator:add_details")
     count = models.Package.objects.filter(author=user[0]).count()
+    quote_count = Quote.objects.filter(author=user[0]).count()
+    quote_unresolved = Quote.objects.filter(author=user[0], resolved=False).count()
     active = (
         models.Package.objects.filter(author=user[0]).filter(visibility=True).count()
     )
     return render(
-        request, "dash_home.html", {"user": user[0], "count": count, "active": active}
+        request,
+        "dash_home.html",
+        {
+            "user": user[0],
+            "count": count,
+            "quote_unresolved": quote_unresolved,
+            "quote_count": quote_count,
+            "active": active,
+        },
     )
 
 
@@ -80,6 +90,19 @@ def view_quotes(request):
         "dash_quotes.html",
         {"user": user[0], "quotes": quotes, "count": quotes.count()},
     )
+
+
+@login_required(login_url="/operator/login")
+def view_quote(request, slug):
+    user = models.Operator.objects.filter(user_id=request.user)
+    if not user.exists():
+        return redirect("tour_operator:add_details")
+    quote = Quote.objects.get(slug=slug)
+    if request.method == "POST":
+        quote.resolved = not quote.resolved
+        quote.save()
+        return redirect("tour_operator:view_quotes")
+    return render(request, "dash_quote.html", {"slug": slug, "quote": quote})
 
 
 @login_required(login_url="/operator/login")

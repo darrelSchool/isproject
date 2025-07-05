@@ -23,14 +23,14 @@
     </button>
     <button 
       class="flex flex-col items-start justify-between space-y-4 bg-white shadow shadow-gray-400 text-black w-[28%] 2xl:aspect-video min-h-fit px-8 py-8 rounded-2xl hover:cursor-pointer"
-      onclick="toPackages()"
+      onclick="toQuotes()"
     >
       <div class="flex flex-row items-center justify-between w-full">
         <p class="text-xl">Open quotes</p>
         <img src="{% static 'icons/open-black.svg' %}" alt="" width="26px">
       </div>
-      <p class="text-6xl font-semibold">23</p>
-      <p class="text-xl">10 unresolved</p>
+      <p class="text-6xl font-semibold">{{quote_count}}</p>
+      <p class="text-xl">{{ quote_unresolved}} unresolved</p>
     </button>
     <button 
       class="flex flex-col items-start justify-between space-y-4 bg-white shadow shadow-gray-400 text-black w-[28%] 2xl:aspect-video min-h-fit px-8 py-8 rounded-2xl hover:cursor-pointer"
@@ -77,6 +77,9 @@
 <script>
 function toPackages(){
   window.location.replace("{% url 'tour_operator:view_packages' %}")
+}
+function toQuotes(){
+  window.location.replace("{% url 'tour_operator:view_quotes' %}")
 }
 </script>
 {% endblock %}
