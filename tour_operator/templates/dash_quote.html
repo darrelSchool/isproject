@@ -1,0 +1,66 @@
+{% extends "dash_layout.html" %} {% block title %}Homepage{% endblock %}
+{% load static %}
+{% block body %}
+<main
+  class="px-12 py-4 flex flex-col space-y-8 bg-white h-[96vh] rounded-2xl w-full shadow shadow-gray-400 overflow-y-hidden">
+  <div class="flex flex-row items-center justify-between w-full">
+    <h2 class="text-3xl font-bold">Dashboard</h2>
+    <form action="{% url 'tour_operator:logout' %}" method="POST">
+      {% csrf_token %}
+      <button type="Submit" class="text-center text-white px-6 py-2 bg-[#1E3D29] rounded-full">Log out</button>
+    </form>
+  </div>
+  <section class="space-y-4">
+    <h2 class="text-3xl font-semibold">Details for {{quote.fname}} {{quote.lname}}</h2>
+    <div class="grid grid-cols-3 gap-8 w-fit">
+      <div class="flex flex-row item-center justify-start space-x-4 text-lg">
+        <p class="font-semibold">Firstname: </p>
+        <p>{{ quote.fname }}</p>
+      </div>
+      <div class="flex flex-row item-center justify-start space-x-4 text-lg">
+        <p class="font-semibold">Lastname: </p>
+        <p>{{ quote.lname }}</p>
+      </div>
+      <div class="flex flex-row item-center justify-start space-x-4 text-lg">
+        <p class="font-semibold">Email: </p>
+        <p>{{ quote.email }}</p>
+      </div>
+      <div class="flex flex-row item-center justify-start space-x-4 text-lg">
+        <p class="font-semibold">Number of adults: </p>
+        <p>{{ quote.adults_no }}</p>
+      </div>
+      <div class="flex flex-row item-center justify-start space-x-4 text-lg">
+        <p class="font-semibold">Number of children: </p>
+        <p>{{ quote.child_no }}</p>
+      </div>
+      <div class="flex flex-row item-center justify-start space-x-4 text-lg">
+        <p class="font-semibold">Nights: </p>
+        <p>{{ quote.child_no }}</p>
+      </div>
+
+    </div>
+    <div class="flex flex-row items-center space-x-8">
+    </div>
+  </section>
+  <section class="space-y-4">
+    <h2 class="font-semibold text-2xl">Package info:</h2>
+    <div class="space-y-3">
+      <h3 class="font-semibold text-xl">{{ quote.package.title }}</h3>
+      <p>{{ quote.package.description }}</p>
+    </div>
+  </section>
+  <form action="{% url 'tour_operator:view_quote' slug=quote.slug %}" method="POST">
+    {% csrf_token %}
+    {% if quote.resolved %}
+    <button class="bg-red-900 px-8 py-2 text-white font-semibold w-1/2 rounded-lg">Mark as unresolved</button>
+    {% else %}
+    <button class="bg-[#1E3D29] px-8 py-2 text-white font-semibold w-1/2 rounded-lg">Mark as resolved</button>
+    {% endif %}
+  </form>
+</main>
+<script>
+  function toPackages() {
+    window.location.replace("{% url 'tour_operator:register' %}")
+  }
+</script>
+{% endblock %}

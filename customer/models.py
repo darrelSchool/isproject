@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms.fields import uuid
 
 from tour_operator.models import Operator, Package
 
@@ -18,6 +19,7 @@ class Quote(models.Model):
     email = models.EmailField()
     adults_no = models.DecimalField(max_digits=3, decimal_places=0)
     child_no = models.DecimalField(max_digits=3, decimal_places=0)
+    slug = models.SlugField(unique=True, null=True)
     nights_no = models.DecimalField(max_digits=3, decimal_places=0)
     date_created = models.DateTimeField(auto_now=True)
     date_chosen = models.DateField()

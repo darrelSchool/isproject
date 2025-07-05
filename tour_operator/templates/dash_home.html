@@ -23,14 +23,14 @@
     </button>
     <button 
       class="flex flex-col items-start justify-between space-y-4 bg-white shadow shadow-gray-400 text-black w-[28%] 2xl:aspect-video min-h-fit px-8 py-8 rounded-2xl hover:cursor-pointer"
-      onclick="toPackages()"
+      onclick="toQuotes()"
     >
       <div class="flex flex-row items-center justify-between w-full">
         <p class="text-xl">Open quotes</p>
         <img src="{% static 'icons/open-black.svg' %}" alt="" width="26px">
       </div>
-      <p class="text-6xl font-semibold">23</p>
-      <p class="text-xl">10 unresolved</p>
+      <p class="text-6xl font-semibold">{{quote_count}}</p>
+      <p class="text-xl">{{ quote_unresolved}} unresolved</p>
     </button>
     <button 
       class="flex flex-col items-start justify-between space-y-4 bg-white shadow shadow-gray-400 text-black w-[28%] 2xl:aspect-video min-h-fit px-8 py-8 rounded-2xl hover:cursor-pointer"
@@ -47,36 +47,31 @@
   <section class="h-1/2 space-y-8">
     <h2 class="text-3xl font-bold">Recent Quotes</h2>
     <div class="font-semibold shadow shadow-gray-400 flex flex-col space-y-4 p-8 rounded-2xl h-full">
+    {% for pack in quotes %}
       <div class="w-full flex flex-row items-center justify-between">
-        <p class="w-1/4">Darrel Kanyugo</p>
-        <p class="w-1/4">A trip to Malawi</p>
-        <p class="w-1/4">darrelk@gmail.com</p>
-        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6">Resolve</button>
+        <p class="w-1/6">{{pack.fname}} {{pack.lname}}</p>
+        <p class="w-1/6">{{pack.email}} </p>
+        {% if pack.resolved %}
+        <p class="w-1/6">Resolved</p>
+        {% else %}
+        <p class="w-1/6">Pending</p>
+        {% endif %}
+        <a 
+          href="{% url 'tour_operator:view_quote' slug=pack.slug %}" 
+          class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6 hover:cursor-pointer text-center"
+        > 
+          View Details
+        </a>
       </div>
-      <div class="w-full flex flex-row items-center justify-between">
-        <p class="w-1/4">Darrel Kanyugo</p>
-        <p class="w-1/4">A trip to Malawi</p>
-        <p class="w-1/4">darrelk@gmail.com</p>
-        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6">Resolve</button>
-      </div>
-      <div class="w-full flex flex-row items-center justify-between">
-        <p class="w-1/4">Darrel Kanyugo</p>
-        <p class="w-1/4">A trip to Malawi</p>
-        <p class="w-1/4">darrelk@gmail.com</p>
-        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6">Resolve</button>
-      </div>
-      <div class="w-full flex flex-row items-center justify-between">
-        <p class="w-1/4">Darrel Kanyugo</p>
-        <p class="w-1/4">A trip to Malawi</p>
-        <p class="w-1/4">darrelk@gmail.com</p>
-        <button class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6">Resolve</button>
-      </div>
-    </div>
+    {% endfor %}
   </section>
 </main>
 <script>
 function toPackages(){
   window.location.replace("{% url 'tour_operator:view_packages' %}")
+}
+function toQuotes(){
+  window.location.replace("{% url 'tour_operator:view_quotes' %}")
 }
 </script>
 {% endblock %}

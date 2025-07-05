@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.utils.text import slugify
 
 from customer.forms import QuoteForm
 from tour_operator import models
@@ -20,7 +21,8 @@ def package_view(request, slug):
             newQuote.author = package.author
             newQuote.resolved = False
             newQuote.save()
-            form = QuoteForm()
+            newQuote.slug = slugify(newQuote.id)
+            newQuote.save()
             return render(
                 request,
                 "package.html",

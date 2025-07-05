@@ -12,24 +12,23 @@
   <section class="h-5/6 space-y-8">
     <div class="flex flex-row items-center justify-between w-full">
       <h2 class="text-3xl font-bold">Your Quotes</h2>
-      <a href="{% url 'tour_operator:register' %}"></a>
     </div>
     <div class="font-semibold shadow shadow-gray-400 flex flex-col space-y-4 p-8 rounded-2xl h-full">
     {% for pack in quotes %}
       <div class="w-full flex flex-row items-center justify-between">
-        <p class="w-1/6">{{pack.title}}</p>
-        {% if pack.hidden %}
-        <p class="w-1/6">Hidden</p>
+        <p class="w-1/6">{{pack.fname}} {{pack.lname}}</p>
+        <p class="w-1/6">{{pack.email}} </p>
+        {% if pack.resolved %}
+        <p class="w-1/6">Resolved</p>
         {% else %}
-        <p class="w-1/6">Visible</p>
+        <p class="w-1/6">Pending</p>
         {% endif %}
         <a 
-          href="{% url 'tour_operator:modify_package' slug=pack.slug %}" 
+          href="{% url 'tour_operator:view_quote' slug=pack.slug %}" 
           class="px-5 py-2 bg-[#1E3D29] text-white rounded-xl w-1/6 hover:cursor-pointer text-center"
         > 
-          Edit
+          View Details
         </a>
-        <button class="px-5 py-2 bg-red-800 text-white rounded-xl w-1/6 hover:cursor-pointer">Delete</button>
       </div>
     {% endfor %}
     </div>
