@@ -8,7 +8,9 @@ from tour_operator.models import Operator, Package
 class Review(models.Model):
     name = models.CharField(max_length=20)
     email = models.EmailField()
-    title = models.CharField(max_length=50)
+    body = models.CharField(max_length=255, default="")
+    package = models.ForeignKey(Package, on_delete=models.DO_NOTHING, default="")
+    rating = models.IntegerField(default=5)
 
 
 class Quote(models.Model):

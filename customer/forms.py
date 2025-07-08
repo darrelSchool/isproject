@@ -1,7 +1,55 @@
 from django import forms
 from django.forms import widgets
 
-from customer.models import Quote
+from customer.models import Quote, Review
+
+
+class SearchForm(forms.Form):
+    search_item = forms.CharField(
+        label="search_item",
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                "class": "border-none outline-none focus:border-none focus:outline-none text-xl w-full",
+                "placeholder": "Search for a location or package",
+            }
+        ),
+    )
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ["name", "email", "body", "rating"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": "px-3 py-2 border rounded-xl",
+                    "placeholder": "Your Name",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "class": "px-3 py-2 border rounded-xl",
+                    "placeholder": "Your email",
+                }
+            ),
+            "body": forms.Textarea(
+                attrs={
+                    "class": "px-3 py-2 border rounded-xl",
+                    "placeholder": "Write your review",
+                    "rows": "3",
+                }
+            ),
+            "rating": forms.NumberInput(
+                attrs={
+                    "class": "px-3 py-2 border rounded-xl",
+                    "placeholder": "0 - 5",
+                    "min": "0",
+                    "max": "5",
+                }
+            ),
+        }
 
 
 class QuoteForm(forms.ModelForm):
@@ -38,20 +86,26 @@ class QuoteForm(forms.ModelForm):
             ),
             "adults_no": forms.NumberInput(
                 attrs={
-                    "class": "px-3 py-2 border rounded-xl",
+                    "class": "px-3 py-2 border rounded-xl w-[200px]",
                     "placeholder": "2",
+                    "min": "0",
+                    "max": "20",
                 }
             ),
             "child_no": forms.NumberInput(
                 attrs={
-                    "class": "px-3 py-2 border rounded-xl",
+                    "class": "px-3 py-2 border rounded-xl w-[200px]",
                     "placeholder": "2",
+                    "min": "0",
+                    "max": "20",
                 }
             ),
             "nights_no": forms.NumberInput(
                 attrs={
-                    "class": "px-3 py-2 border rounded-xl",
+                    "class": "px-3 py-2 border rounded-xl w-[200px]",
                     "placeholder": "2",
+                    "min": "0",
+                    "max": "20",
                 }
             ),
             "date_chosen": forms.DateInput(

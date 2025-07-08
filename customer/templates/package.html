@@ -1,5 +1,6 @@
 {% extends "cust_layout.html" %} {% block title %}Welcome to Tour Haven{% endblock %}
 {% load static %}
+{% load my_filters %}
 {% block body %}
 <main class="flex flex-col items-center">
   <div class="space-y-6 px-16 py-8 w-[80vw]">
@@ -48,79 +49,60 @@
               {{form.child_no}}
             </div>
           </div>
-          <button type="submit" class="text-center text-white py-4 w-full bg-[#2094A1] rounded-xl">
+          <button type="submit" class="text-center text-white py-4 w-full bg-[#2094A1] rounded-xl hover:cursor-pointer">
             Submit Request
           </button>
         </form>
       </div>
     </section>
-    <section class="space-y-6">
-      <h3 class="font-bold text-2xl">Description</h3>
-      <p class="w-1/2">{{ package.description}}</p>
+    <section class="flex flex-row items-start justify-start space-x-8">
+      <div class="space-y-6 w-[800px]">
+        <h3 class="font-bold text-2xl">Description</h3>
+        <p class="w-3/4">{{ package.description}}</p>
+      </div>
+      <form action="{% url 'customer:add_review' slug=package.slug %}" method="POST" class="space-y-6">
+        {% csrf_token %}
+        <p class="font-bold text-2xl">Leave a review</p>
+        <div class="flex flex-row items-start justify-start space-x-4">
+          <label for="name" class="w-[60px]">Name:</label>
+          {{ review_form.name}}
+        </div>
+        <div class="flex flex-row items-start justify-start space-x-4">
+          <label for="email" class="w-[60px]">Email:</label>
+          {{ review_form.email}}
+        </div>
+        <div class="flex flex-row items-start justify-start space-x-4">
+          <label for="rating" class="w-[60px]">Rating:</label>
+          {{ review_form.rating}}
+        </div>
+        <div class="flex flex-row items-start justify-start space-x-4">
+          <label for="body" class="w-[60px]">Body:</label>
+          {{ review_form.body}}
+        </div>
+          <button type="submit" class="text-center text-white py-4 w-full bg-[#2094A1] rounded-xl hover:cursor-pointer">
+            Post review
+          </button>
+      </form>
     </section>
     <section class="space-y-6">
       <h3 class="font-bold text-2xl">Reviews</h3>
       <div class="flex flex-row flex-wrap space-x-6 gap-y-10">
-        <div class="flex flex-col space-y-3 w-[440px] px-4 pt-4 pb-6 border border-gray-500 rounded-xl">
+        {% for review in reviews %}
+        <div class="flex flex-col space-y-3 w-[440px] h-[130px] px-4 pt-4 pb-6 border border-gray-500 rounded-xl">
           <div class="flex flex-row space-x-4">
-            <p>Darrel K</p>
+            <p>{{review.name}}</p>
             <div class="flex flex-row">
+              {% for i in review.rating|get_range %}
               <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
+              {% endfor %}
+              {% for i in 5|sub:review.rating|get_range %}
               <img src="{% static 'icons/star-empty.svg' %}" alt="" width="20">
+              {% endfor %}
             </div>
           </div>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae iste inventore facere doloremque
-            vero,
-            eveniet nisi consequatur pariatur a cupiditate?</p>
+          <p>{{ review.body }}</p>
         </div>
-        <div class="flex flex-col space-y-3 w-[440px] px-4 pt-4 pb-6 border border-gray-500 rounded-xl">
-          <div class="flex flex-row space-x-4">
-            <p>Darrel K</p>
-            <div class="flex flex-row">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-empty.svg' %}" alt="" width="20">
-            </div>
-          </div>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae iste inventore facere doloremque
-            vero,
-            eveniet nisi consequatur pariatur a cupiditate?</p>
-        </div>
-        <div class="flex flex-col space-y-3 w-[440px] px-4 pt-4 pb-6 border border-gray-500 rounded-xl">
-          <div class="flex flex-row space-x-4">
-            <p>Darrel K</p>
-            <div class="flex flex-row">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-empty.svg' %}" alt="" width="20">
-            </div>
-          </div>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae iste inventore facere doloremque
-            vero,
-            eveniet nisi consequatur pariatur a cupiditate?</p>
-        </div>
-        <div class="flex flex-col space-y-3 w-[440px] px-4 pt-4 pb-6 border border-gray-500 rounded-xl">
-          <div class="flex flex-row space-x-4">
-            <p>Darrel K</p>
-            <div class="flex flex-row">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-full.svg' %}" alt="" width="20">
-              <img src="{% static 'icons/star-empty.svg' %}" alt="" width="20">
-            </div>
-          </div>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae iste inventore facere doloremque
-            vero,
-            eveniet nisi consequatur pariatur a cupiditate?</p>
-        </div>
+        {% endfor %}
       </div>
     </section>
   </div>
