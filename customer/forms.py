@@ -4,6 +4,19 @@ from django.forms import widgets
 from customer.models import Quote, Review
 
 
+class SearchForm(forms.Form):
+    search_item = forms.CharField(
+        label="search_item",
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                "class": "border-none outline-none focus:border-none focus:outline-none text-xl w-full",
+                "placeholder": "Search for a location or package",
+            }
+        ),
+    )
+
+
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review

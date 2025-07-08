@@ -12,6 +12,13 @@
       <p class="text-2xl">Find your dream destination</p>
     </div>
   </section>
+  <section class="flex items-center justify-center pt-6">
+    <form action="{% url 'customer:search' %}" method="POST" class="w-1/2 border border-gray-600 rounded-full px-6 py-3 flex flex-row items-center justify-start ">
+      {% csrf_token %}
+      {{ search_form.search_item }}
+      <img src="{% static 'icons/search.svg' %}" alt="" width="30px">
+    </form>
+  </section>
   <section class="py-8 space-y-6 ">
     <h3 class="font-semibold text-2xl">Top destinations</h3>
     <div class="grid grid-cols-4 gap-10">
