@@ -2,11 +2,12 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import AuthenticationForm
+from django.db.models import Avg
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.text import slugify
 
-from customer.models import Quote
+from customer.models import Quote, Review
 from tour_operator import models
 from tour_operator.forms import AuthForm, CreateOperator, CreatePackage, ModifyPackage
 
@@ -49,6 +50,10 @@ def home(request):
         return redirect("tour_operator:add_details")
     count = models.Package.objects.filter(author=user[0]).count()
     quote_count = Quote.objects.filter(author=user[0]).count()
+    review_count = Review.objects.filter(package__author=user[0]).count()
+    review_avg = Review.objects.filter(package__author=user[0]).aggregate(
+        Avg("rating", default=0)
+    )
     quote_unresolved = Quote.objects.filter(author=user[0], resolved=False).count()
     quotes = Quote.objects.filter(author=user[0])
     active = (
@@ -63,8 +68,23 @@ def home(request):
             "quote_unresolved": quote_unresolved,
             "quote_count": quote_count,
             "quotes": quotes,
+            "review_count": review_count,
+            "review_avg": review_avg["rating__avg"],
             "active": active,
         },
+    )
+
+
+@login_required(login_url="/operator/login")
+def view_reviews(request):
+    user = models.Operator.objects.filter(user_id=request.user)
+    if not user.exists():
+        return redirect("tour_operator:add_details")
+    reviews = Review.objects.filter(package__author=user[0])
+    return render(
+        request,
+        "dash_reviews.html",
+        {"user": user[0], "reviews": reviews, "count": reviews.count()},
     )
 
 

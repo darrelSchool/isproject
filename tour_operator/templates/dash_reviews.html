@@ -1,0 +1,40 @@
+{% extends "dash_layout.html" %} {% block title %}Homepage{% endblock %}
+{% load static %}
+{% block body %}
+<main class="px-12 py-4 flex flex-col space-y-8 bg-white h-[96vh] rounded-2xl w-full shadow shadow-gray-400 overflow-y-hidden">
+  <div class="flex flex-row items-center justify-between w-full">
+    <h2 class="text-3xl font-bold">Dashboard</h2>
+      <form action="{% url 'tour_operator:logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="Submit" class="text-center text-white px-6 py-2 bg-[#1E3D29] rounded-full">Log out</button>
+      </form>
+  </div>
+  <section class="h-5/6 space-y-8">
+    <div class="flex flex-row items-center justify-between w-full">
+      <h2 class="text-3xl font-bold">Your Reviews</h2>
+      <a href="{% url 'tour_operator:register' %}"></a>
+    </div>
+    <div class="font-semibold shadow shadow-gray-400 flex flex-col space-y-4 p-8 rounded-2xl h-full">
+      <div class="w-full flex flex-row items-center justify-between">
+        <p class="w-1/6">Name</p>
+        <p class="w-1/6">Email</p>
+        <p class="w-1/6">Rating</p>
+        <p class="w-1/2">Body</p>
+      </div>
+    {% for review in reviews %}
+      <div class="w-full flex flex-row items-center justify-between font-normal">
+        <p class="w-1/6">{{review.name}}</p>
+        <p class="w-1/6">{{review.email}}</p>
+        <p class="w-1/6">{{review.rating}}</p>
+        <p class="w-1/2">{{review.body}}</p>
+      </div>
+    {% endfor %}
+    </div>
+  </section>
+</main>
+<script>
+function toPackages(){
+  window.location.replace("{% url 'tour_operator:register' %}")
+}
+</script>
+{% endblock %}

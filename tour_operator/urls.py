@@ -12,6 +12,7 @@ urlpatterns = [
     path("add_details", views.add_details, name="add_details"),
     path("create_package", views.create_package, name="create_package"),
     path("packages", views.view_packages, name="view_packages"),
+    path("reviews", views.view_reviews, name="view_reviews"),
     path("quotes", views.view_quotes, name="view_quotes"),
     path("modify_package/<slug:slug>", views.modify_package, name="modify_package"),
     path("view_quote/<slug:slug>", views.view_quote, name="view_quote"),
